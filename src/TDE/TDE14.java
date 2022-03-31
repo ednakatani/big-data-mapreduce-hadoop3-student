@@ -3,7 +3,6 @@ package TDE;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -41,7 +40,7 @@ public class TDE14 {
         //Definição de tipos de saída
         //MAP
         j.setMapOutputKeyClass(Text.class);
-        j.setMapOutputValueClass(DoubleWritable.class);
+        j.setMapOutputValueClass(AverageWritable.class);
         //REDUCE
         j.setOutputKeyClass(Text.class);
         j.setOutputValueClass(DoubleWritable.class);
@@ -53,7 +52,7 @@ public class TDE14 {
         System.exit(j.waitForCompletion(true) ? 0 : 1);
     }
 
-    public static class Tde14Mapper extends Mapper<Object, Text, Text, DoubleWritable> {
+    public static class Tde14Mapper extends Mapper<Object, Text, Text, AverageWritable> {
         public void map(Object key, Text value, Context context) throws IOException,
                 InterruptedException {
 
@@ -69,22 +68,27 @@ public class TDE14 {
 
             //Emitir (chave, valor) → ("media", (n=1, sum=temperatura))
 
-            context.write(new Text(ano), new DoubleWritable(preco));
+            context.write(new Text(ano), new AverageWritable(1,preco));
         }
     }
 
-    public static class Tde14Reducer extends Reducer<Text, DoubleWritable, Text, DoubleWritable> {
+    public static class Tde14Reducer extends Reducer<Text, AverageWritable, Text, DoubleWritable> {
 
         public void reduce(Text key,
-                           Iterable<DoubleWritable> values,
+                           Iterable<AverageWritable> values,
                            Context context) throws IOException, InterruptedException {
 
-            int sum = 0;
-            for (DoubleWritable v : values){
-                sum += v.get(); //get retorna o valor em int tradicional
+            int nTotal =0;
+            double somaTotal = 0.0;
+            for (AverageWritable o: values){
+                nTotal += o.getN();
+                somaTotal += o.getSoma();
             }
 
-            context.write(key, new DoubleWritable(sum));
+            //Media = soma das somas/ soma dos Ns
+            double media = somaTotal / nTotal;
+
+            context.write(key, new DoubleWritable(media));
 
         }
     }
