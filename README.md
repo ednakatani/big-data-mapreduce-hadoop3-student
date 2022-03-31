@@ -20,9 +20,9 @@ the dataset contains the following variables:
 
 Given the aforementioned context, you are in charge of developing a set of solutions that allow 
 the company to answer the following demands:
-1. (Easy) The number of transactions involving Brazil;
-2. (Easy) The number of transactions per year;
-3. (Easy) The number of transactions per flow type and year;
+1. (Easy) The number of transactions involving Brazil✅;
+2. (Easy) The number of transactions per year✅;
+3. (Easy) The number of transactions per flow type and year✅;
 4. (Easy) The average of commodity values per year;
 5. (Easy) The average price of commodities per unit type, year, and category in the export flow 
 in Brazil;
