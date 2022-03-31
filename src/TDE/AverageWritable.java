@@ -1,15 +1,12 @@
-package advanced.customwritable;
+package TDE;
 
-import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.io.WritableComparable;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Objects;
 
-public class FireAvgTempWritable implements WritableComparable<FireAvgTempWritable> {
+public class AverageWritable implements WritableComparable<AverageWritable> {
     /**
      * Todo writable precisa ser um Java BEAN
      * 1- Construtor Vazio
@@ -22,10 +19,10 @@ public class FireAvgTempWritable implements WritableComparable<FireAvgTempWritab
     private double soma;
 
 
-    public FireAvgTempWritable() {
+    public AverageWritable() {
     }
 
-    public FireAvgTempWritable(int n, double soma) {
+    public AverageWritable(int n, double soma) {
         this.n = n;
         this.soma = soma;
     }
@@ -47,7 +44,7 @@ public class FireAvgTempWritable implements WritableComparable<FireAvgTempWritab
     }
 
     @Override
-    public int compareTo(FireAvgTempWritable o) {
+    public int compareTo(AverageWritable o) {
         if (this.hashCode() > o.hashCode()){
             return +1;
         } else if (this.hashCode() < o.hashCode()) {
@@ -72,7 +69,7 @@ public class FireAvgTempWritable implements WritableComparable<FireAvgTempWritab
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FireAvgTempWritable that = (FireAvgTempWritable) o;
+        AverageWritable that = (AverageWritable) o;
         return n == that.n && Double.compare(that.soma, soma) == 0;
     }
 
