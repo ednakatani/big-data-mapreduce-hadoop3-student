@@ -23,9 +23,9 @@ the company to answer the following demands:
 1. (Easy) The number of transactions involving Brazil✅;
 2. (Easy) The number of transactions per year✅;
 3. (Easy) The number of transactions per flow type and year✅;
-4. (Easy) The average of commodity values per year;
+4. (Easy) The average of commodity values per year✅;
 5. (Easy) The average price of commodities per unit type, year, and category in the export flow 
-in Brazil;
+in Brazil✅;
 6. (Medium) The maximum, minimum, and mean transaction price per unit type and year;
 7. (Hard) The most commercialized commodity (summing the quantities) in 2016, per flow 
 type.
