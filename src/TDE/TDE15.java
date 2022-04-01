@@ -72,7 +72,7 @@ public class TDE15 {
 
             //Emitir (chave, valor) → ("media", (n=1, sum=temperatura))
             if (pais.equals("Brazil")){
-                context.write(new Text(ano+"\t"+categoria+"\t"+unidade), new AverageWritable(1, preco));
+                context.write(new Text(ano+" "+categoria+" "+unidade), new AverageWritable(1, preco));
             }
 
         }
