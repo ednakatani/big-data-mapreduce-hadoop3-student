@@ -26,6 +26,6 @@ the company to answer the following demands:
 4. (Easy) The average of commodity values per year✅;
 5. (Easy) The average price of commodities per unit type, year, and category in the export flow 
 in Brazil✅;
-6. (Medium) The maximum, minimum, and mean transaction price per unit type and year;
+6. (Medium) The maximum, minimum, and mean transaction price per unit type and year✅;
 7. (Hard) The most commercialized commodity (summing the quantities) in 2016, per flow 
 type.
