@@ -21,12 +21,12 @@ public class BaseQtdWritable implements WritableComparable<BaseQtdWritable>{
     public BaseQtdWritable() {
     }
 
-    public BaseQtdWritable(int base_a, int base_c, int base_t, int base_g, int total) {
+    public BaseQtdWritable(int base_a, int base_c, int base_t, int base_g) {
         this.base_a = base_a;
         this.base_c = base_c;
         this.base_t = base_t;
         this.base_g = base_g;
-        this.total = total;
+        this.total = base_a + base_c + base_g + base_t;
     }
 
     public int getBase_a() {
@@ -89,7 +89,7 @@ public class BaseQtdWritable implements WritableComparable<BaseQtdWritable>{
 
     @Override
     public String toString() {
-        return super.toString();
+        return "A "+this.base_a+"\nC "+this.base_c+"\nG "+this.base_g+"\nT "+this.base_t;
     }
 
     @Override
@@ -99,16 +99,30 @@ public class BaseQtdWritable implements WritableComparable<BaseQtdWritable>{
 
     @Override
     public int compareTo(BaseQtdWritable o) {
+        if (this.hashCode() > o.hashCode()){
+            return +1;
+        } else if (this.hashCode() < o.hashCode()) {
+            return -1;
+        }
         return 0;
     }
 
     @Override
     public void write(DataOutput dataOutput) throws IOException {
+        dataOutput.writeInt(base_a);
+        dataOutput.writeInt(base_c);
+        dataOutput.writeInt(base_t);
+        dataOutput.writeInt(base_g);
 
     }
 
     @Override
     public void readFields(DataInput dataInput) throws IOException {
+        base_a = dataInput.readInt();
+        base_c = dataInput.readInt();
+        base_t = dataInput.readInt();
+        base_g = dataInput.readInt();
+
 
     }
 }
