@@ -1,5 +1,7 @@
 package advanced.entropy;
 
+import advanced.customwritable.AverageTemperature;
+import advanced.customwritable.FireAvgTempWritable;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;
@@ -34,16 +36,42 @@ public class EntropyFASTA {
         // arquivo de saida
         Path output = new Path(files[1]);
 
+        // criacao do job e seu nome
+        Job j = new Job(c, "contagem");
+
+        //Registro de classes
+        j.setJarByClass(EntropyFASTA.class);
+        j.setMapperClass((MapEtapaA.class));
+        j.setReducerClass(ReduceEtapaA.class);
+
+        //Definição de tipos de saida
+        //Map
+        j.setMapOutputKeyClass(Text.class);
+        j.setMapOutputValueClass(BaseQtdWritable.class);
+        //Reduce
+        j.setOutputKeyClass(Text.class);
+        j.setOutputValueClass(BaseQtdWritable.class);
+
+        // definicao de arquivos de entrada e saida
+        FileInputFormat.addInputPath(j,input);
+        FileOutputFormat.setOutputPath(j, output);
+
+        // lanca o job e aguarda sua execucao
+        System.exit(j.waitForCompletion(true) ? 0 : 1);
+
     }
 
 
-    public static class MapEtapaA extends Mapper<LongWritable, Text, Text, LongWritable> {
+    public static class MapEtapaA extends Mapper<LongWritable, Text, Text, BaseQtdWritable> {
         public void map(LongWritable key, Text value, Context con)
                 throws IOException, InterruptedException {
+
+
+
         }
     }
 
-    public static class ReduceEtapaA extends Reducer<Text, LongWritable, Text, LongWritable> {
+    public static class ReduceEtapaA extends Reducer<Text, LongWritable, Text, BaseQtdWritable> {
         public void reduce(Text key, Iterable<LongWritable> values, Context con)
                 throws IOException, InterruptedException {
         }
