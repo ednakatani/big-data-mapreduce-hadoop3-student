@@ -119,7 +119,7 @@ public class TDE17 {
 
             int sum = 0;
             for (DoubleWritable v : values){
-                sum += v.get(); //get retorna o valor em int tradicional
+                sum += v.get();
             }
 
             //Salvando em arquivo

@@ -9,10 +9,10 @@ import java.util.Objects;
 
 public class TransactionWritable implements WritableComparable<TransactionWritable> {
 
-    private Double max;
+    private double max;
     private String commodity;
 
-    public TransactionWritable(Double max, String commodity) {
+    public TransactionWritable(double max, String commodity) {
         this.max = max;
         this.commodity = commodity;
     }
@@ -21,11 +21,11 @@ public class TransactionWritable implements WritableComparable<TransactionWritab
 
     }
 
-    public Double getMax() {
+    public double getMax() {
         return max;
     }
 
-    public void setMax(Double max) {
+    public void setMax(double max) {
         this.max = max;
     }
 
@@ -68,7 +68,7 @@ public class TransactionWritable implements WritableComparable<TransactionWritab
     @Override
     public void readFields(DataInput dataInput) throws IOException {
         max = dataInput.readDouble();
-        commodity = dataInput.readLine();
+        commodity = dataInput.readUTF();
 
 
     }

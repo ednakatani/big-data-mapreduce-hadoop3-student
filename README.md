@@ -28,4 +28,4 @@ the company to answer the following demands:
 in Brazil✅;
 6. (Medium) The maximum, minimum, and mean transaction price per unit type and year✅;
 7. (Hard) The most commercialized commodity (summing the quantities) in 2016, per flow 
-type.
+type✅.
