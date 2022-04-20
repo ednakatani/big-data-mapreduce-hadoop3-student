@@ -63,15 +63,16 @@ public class TDE15 {
             //Quebrando em campos
             String[] campos = linha.split(";");
 
-            //Obtendo ano, país, unidade, categoria e preço
+            //Obtendo ano, país, unidade, categoria, fluxo e preço
             String ano = campos[1];
             String pais = campos[0];
             String unidade = campos[7];
             String categoria = campos[9];
+            String flow = campos[4];
             double preco = Double.parseDouble(campos[5]);
 
-            //Enviando as transações separadas por ano, categoria e unidade, somente para Brasil
-            if (pais.equals("Brazil")){
+            //Enviando as transações separadas por ano, categoria e unidade, somente para Brasil e Exportação
+            if (pais.equals("Brazil") && flow.equals("Export")){
                 context.write(new Text(ano+" "+categoria+" "+unidade), new AverageWritable(1, preco));
             }
 
