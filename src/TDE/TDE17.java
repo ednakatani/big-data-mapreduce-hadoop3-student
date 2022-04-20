@@ -117,7 +117,7 @@ public class TDE17 {
         public void reduce(Text key, Iterable<DoubleWritable> values, Context con)
                 throws IOException, InterruptedException {
 
-            int sum = 0;
+            long sum = 0;
             for (DoubleWritable v : values){
                 sum += v.get();
             }
@@ -169,7 +169,7 @@ public class TDE17 {
 
             }
 
-            con.write(key, new Text(nome_max));
+            con.write(key, new Text(nome_max + "\t" + max));
 
         }
     }
