@@ -62,12 +62,11 @@ public class TDE14 {
             //Quebrando em campos
             String[] campos = linha.split(";");
 
-            //Obtendo ano
+            //Obtendo ano e preço
             String ano = campos[1];
             double preco = Double.parseDouble(campos[5]);
 
-            //Emitir (chave, valor) → ("media", (n=1, sum=temperatura))
-
+            //Enviando os preços de cada ano
             context.write(new Text(ano), new AverageWritable(1,preco));
         }
     }
@@ -80,6 +79,8 @@ public class TDE14 {
 
             int nTotal =0;
             double somaTotal = 0.0;
+
+            //Calculando a média
             for (AverageWritable o: values){
                 nTotal += o.getN();
                 somaTotal += o.getSoma();

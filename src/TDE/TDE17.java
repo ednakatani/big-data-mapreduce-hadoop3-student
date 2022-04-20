@@ -139,14 +139,12 @@ public class TDE17 {
             //Quebrando em campos
             String[] campos = linha.split("\t");
 
-            //Obtendo ano
-
+            //Obtendo fluxo, commodity e ammount
             String flow = campos[0];
             String commodity = campos[1];
             double ammount = Double.parseDouble(campos[2]);
 
-            //Emitir (chave, valor) → ("media", (n=1, sum=temperatura))
-
+            //Selecionando as transações por fluxo
             con.write(new Text(flow), new TransactionWritable(ammount,commodity));
 
 
@@ -161,6 +159,7 @@ public class TDE17 {
             String nome_max = "";
             double max = Double.MIN_VALUE;
 
+            //Verifica o maior valor por fluxo
             for (TransactionWritable o: values){
                 if(o.getMax()>max){
                     max = o.getMax();
@@ -169,7 +168,7 @@ public class TDE17 {
 
             }
 
-            con.write(key, new Text(nome_max + "\t" + max));
+            con.write(key, new Text(nome_max+"\t"+max));
 
         }
     }

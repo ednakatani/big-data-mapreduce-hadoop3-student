@@ -62,12 +62,11 @@ public class TDE13 {
             //Quebrando em campos
             String[] campos = linha.split(";");
 
-            //Obtendo ano
+            //Obtendo ano e fluxo
             String year = campos[1];
             String flow = campos[4];
 
-            //Emitir (chave, valor) → ("media", (n=1, sum=temperatura))
-
+            //Separando as transações por ano e fluxo
             context.write(new Text(year+" "+flow), new IntWritable(1));
         }
     }
@@ -79,8 +78,9 @@ public class TDE13 {
                            Context context) throws IOException, InterruptedException {
 
             int sum = 0;
+            //Somando as ocorrencias de transação
             for (IntWritable v : values){
-                sum += v.get(); //get retorna o valor em int tradicional
+                sum += v.get();
             }
 
             context.write(key, new IntWritable(sum));

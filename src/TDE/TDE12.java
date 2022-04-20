@@ -65,8 +65,7 @@ public class TDE12 {
             //Obtendo ano
             String ano = campos[1];
 
-            //Emitir (chave, valor) → ("media", (n=1, sum=temperatura))
-
+            //Enviando ano como chave
             context.write(new Text(ano), new IntWritable(1));
         }
     }
@@ -78,8 +77,9 @@ public class TDE12 {
                            Context context) throws IOException, InterruptedException {
 
             int sum = 0;
+            // Somando o total de transações em um determinado ano
             for (IntWritable v : values){
-                sum += v.get(); //get retorna o valor em int tradicional
+                sum += v.get();
             }
 
             context.write(key, new IntWritable(sum));

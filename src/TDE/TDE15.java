@@ -63,14 +63,14 @@ public class TDE15 {
             //Quebrando em campos
             String[] campos = linha.split(";");
 
-            //Obtendo ano
+            //Obtendo ano, país, unidade, categoria e preço
             String ano = campos[1];
             String pais = campos[0];
             String unidade = campos[7];
             String categoria = campos[9];
             double preco = Double.parseDouble(campos[5]);
 
-            //Emitir (chave, valor) → ("media", (n=1, sum=temperatura))
+            //Enviando as transações separadas por ano, categoria e unidade, somente para Brasil
             if (pais.equals("Brazil")){
                 context.write(new Text(ano+" "+categoria+" "+unidade), new AverageWritable(1, preco));
             }
@@ -86,6 +86,8 @@ public class TDE15 {
 
             int nTotal =0;
             double somaTotal = 0.0;
+
+            //Calculando a média
             for (AverageWritable o: values){
                 nTotal += o.getN();
                 somaTotal += o.getSoma();

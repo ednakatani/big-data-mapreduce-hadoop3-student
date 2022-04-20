@@ -62,18 +62,14 @@ public class TDE16 {
             //Quebrando em campos
             String[] campos = linha.split(";");
 
-            //Obtendo ano
+            //Obtendo ano, unidade e preço
             String ano = campos[1];
             String unidade = campos[7];
-
-            String pais = campos[0];
-            String categoria = campos[9];
             double preco = Double.parseDouble(campos[5]);
 
-            //Emitir (chave, valor) → ("media", (n=1, sum=temperatura))
-            if (pais.equals("Brazil")){
-                context.write(new Text(ano+" "+unidade), new AverageMinMaxWritable(1, preco,preco,preco));
-            }
+            //Enviando as transações separadas por ano e unidade
+            context.write(new Text(ano+" "+unidade), new AverageMinMaxWritable(1, preco,preco,preco));
+
 
         }
     }
@@ -89,6 +85,7 @@ public class TDE16 {
             double max = Double.MIN_VALUE;
             double min = Double.MAX_VALUE;
 
+            //Verificando o maior, menor valor e a soma
             for (AverageMinMaxWritable o: values){
                 if(o.getMax()>max){
                     max = o.getMax();

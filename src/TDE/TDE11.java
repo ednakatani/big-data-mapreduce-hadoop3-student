@@ -65,11 +65,10 @@ public class TDE11 {
             //Obtendo pais
             String pais = campos[0];
 
-            //Emitir (chave, valor) → ("media", (n=1, sum=temperatura))
+            //Selecionar somente as transações envolvendo o Brasil
             if (pais.equals("Brazil")){
                 context.write(new Text(pais), new IntWritable(1));
             }
-            //con.write(new Text("mediawind"), new FireAvgTempWritable(1,vento));
         }
     }
 
@@ -80,8 +79,9 @@ public class TDE11 {
                            Context context) throws IOException, InterruptedException {
 
             int sum = 0;
+            //Soma a quantidade de transações
             for (IntWritable v : values){
-                sum += v.get(); //get retorna o valor em int tradicional
+                sum += v.get();
             }
 
             context.write(key, new IntWritable(sum));
